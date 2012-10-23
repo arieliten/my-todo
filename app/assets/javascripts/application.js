@@ -18,7 +18,7 @@
 
 $(document).ready(function(){
   // Initializes datepicker elements
-  $('.datepicker').datepicker();
+  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 
   $(document).on('click', 'a#link-toggle-completed', function(){
     if ($('a#link-toggle-completed').html()=='Hide completed'){
