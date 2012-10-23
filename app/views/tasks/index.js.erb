@@ -1,0 +1,7 @@
+$('#todo-table thead').html("<%= escape_javascript(render partial: 'tasks/tasks_header') %>")
+$('#todo-table tbody').html("<%= escape_javascript(render partial: 'tasks/task', collection: @tasks) %>")
+$('#sort').val("<%= params[:sort] %>")
+$('#hide_completed').val("<%= params[:hide_completed] %>")
+<% if params[:reset] %>
+  $('#form').html("<%= escape_javascript(render partial: 'tasks/form') %>")
+<% end %>

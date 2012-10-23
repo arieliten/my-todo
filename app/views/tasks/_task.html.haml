@@ -1,0 +1,11 @@
+%tr{id: "task-#{task.id}", class: row_css_class(task, params[:hide_completed])}
+  %td{class: sort_css_class(:title, params[:sort])}= task.title
+  %td{class: sort_css_class(:due_at, params[:sort])}= task.due_at
+  %td{class: sort_css_class(:priority, params[:sort])}= task.priority
+  %td
+    = link_to toggle_task_path(task), method: :put, remote: true do
+      %i.icon-ok
+    = link_to edit_task_path(task), remote: true do
+      %i.icon-pencil
+    = link_to task, method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
+      %i.icon-remove

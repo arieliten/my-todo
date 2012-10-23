@@ -1,0 +1,18 @@
+.row
+  .span8
+    #form.form-actions
+      = render partial: 'tasks/form'
+
+.row
+  .span8
+    %table.table.table-condensed.table-hover#todo-table
+      %thead
+        = render partial: 'tasks/tasks_header'
+      %tbody
+        = render partial: 'tasks/task', collection: @tasks
+
+.row
+  .span8
+    .form-actions
+      = link_to 'Clear Order', root_path(hide_completed: params[:hide_completed]||0), remote: true, class: 'sort-link btn btn-mini'
+      = link_to((params[:hide_completed] ? 'Show all' : 'Hide completed'), "javascript:void(0)", class: 'btn btn-mini', id: 'link-toggle-completed')
