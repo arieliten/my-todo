@@ -5,6 +5,7 @@ gem 'jquery-rails'
 gem "haml", ">= 3.1.7"
 gem "devise"
 gem "twitter-bootstrap-rails", ">= 2.1.3"
+gem 'simple_form'
 
 group :development do
   gem 'sqlite3'

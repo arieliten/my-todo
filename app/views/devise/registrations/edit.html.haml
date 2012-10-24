@@ -1,29 +1,10 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f|
+  %h3 Edit Account
   = devise_error_messages!
-  %p
-    = f.label :name
-    %br/
-    = f.text_field :name
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email
-  %div
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, :autocomplete => "off"
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %div
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password
-  %div= f.submit "Update"
-
-= link_to "Back", :back, class: 'btn btn-mini'
+  = f.input :name, placeholder: 'Your Name', required: false
+  = f.input :email, placeholder: 'user@email.com'
+  = f.input :password, input_html: { autocomplete: "off" }, hint: "(leave blank if you don't want to change it.)"
+  = f.input :password_confirmation, input_html: { autocomplete: "off" }
+  = f.input :authentication_token, label: 'Auth Token', placeholder: 'Auth Token', disabled: true
+  = f.input :current_password, hint: '(we need your current password to confirm your changes)', input_html: { autocomplete: "off" }
+  .form-actions.span4= f.submit "Update", class: 'btn btn-info'
