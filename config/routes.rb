@@ -8,4 +8,10 @@ MyTodo::Application.routes.draw do
   resources :tasks, except: [:show] do
     put :toggle, on: :member
   end
+
+  namespace :api do
+    #resources :tokens, only: [:create, :destroy]
+    resources :tasks
+  end
+
 end

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :get_task, :only => [:show, :edit, :update, :destroy, :toggle]
+  before_filter :find_task, only: [:show, :edit, :update, :destroy, :toggle]
 
   def index
     params[:hide_completed] = '1' unless params[:hide_completed]
@@ -52,7 +52,7 @@ class TasksController < ApplicationController
 
   private
 
-  def get_task
+  def find_task
     @task = current_user.tasks.find(params[:id])
   end
 
