@@ -1,0 +1,9 @@
+%thead
+  %tr
+    %th{class: sort_css_class(:title)}= task_sort_link(:title, class: 'sort-link')
+    %th{class: sort_css_class(:due_at)}= task_sort_link(:due_at, class: 'sort-link')
+    %th{class: sort_css_class(:priority)}= task_sort_link(:priority, class: 'sort-link')
+    %th #
+%tbody
+  = render partial: 'tasks/task', collection: tasks
+

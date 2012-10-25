@@ -3,10 +3,11 @@ class TasksController < ApplicationController
   before_filter :find_task, only: [:show, :edit, :update, :destroy, :toggle]
 
   def index
-    params[:hide_completed] = '1' unless params[:hide_completed]
+    session[:hide] = (params[:hide] || session[:hide] || '1').to_i
+    session[:sort] = params[:sort] || session[:sort] || ''
     @task  = current_user.tasks.new
     @tasks = current_user.tasks.reload
-    @tasks = @tasks.order(params[:sort]) if params[:sort]
+    @tasks = @tasks.order(session[:sort]) unless session[:sort].blank?
   end
 
   def new
@@ -16,7 +17,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.new(params[:task])
     if @task.save
-      redirect_to root_path(persisted_params.merge!({reset: true})), notice: 'Task added'
+      redirect_to root_path(reset: true), notice: 'Task added'
     else
       render action: 'new'
     end
@@ -27,10 +28,11 @@ class TasksController < ApplicationController
 
   def update
     if @task.update_attributes(params[:task])
-      respond_to do |format|
-        format.html { redirect_to root_path(persisted_params), notice: 'Task successfully updated' }
-        format.js   # update.js.erb
-      end
+      redirect_to root_path, notice: 'Task successfully updated'
+      #respond_to do |format|
+      #  format.html { redirect_to root_path, notice: 'Task successfully updated' }
+      #  format.js   # update.js.erb
+      #end
     else
       render action: 'edit'
     end
@@ -43,12 +45,13 @@ class TasksController < ApplicationController
 
   def toggle
     @task.toggle!(:completed)
-    respond_to do |format|
-      format.html { redirect_to root_path(persisted_params), notice: 'Task status updated' }
-      format.js   # toggle.js.erb
-    end
+    redirect_to root_path, notice: 'Task successfully removed'
   end
 
+  def toggle_visibility
+    session[:hide] = (params[:hide] || 1).to_i
+    render text: session[:hide]
+  end
 
   private
 
@@ -56,8 +59,4 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find(params[:id])
   end
 
-  def persisted_params
-    { sort: params[:sort] || '', 
-      hide_completed: params[:hide_completed] || false}
-  end
 end

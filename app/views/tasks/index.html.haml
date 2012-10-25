@@ -6,13 +6,10 @@
 .row
   .span8
     %table.table.table-condensed.table-hover#todo-table
-      %thead
-        = render partial: 'tasks/tasks_header'
-      %tbody
-        = render partial: 'tasks/task', collection: @tasks
+      = render partial: 'tasks/task_table', locals: { tasks: @tasks }
 
 .row
   .span8
     .form-actions
-      = link_to 'Clear Order', root_path(hide_completed: params[:hide_completed]||0), remote: true, class: 'sort-link btn btn-mini'
-      = link_to((params[:hide_completed] ? 'Show all' : 'Hide completed'), "javascript:void(0)", class: 'btn btn-mini', id: 'link-toggle-completed')
+      = link_to 'Clear Order', root_path(sort:''), remote: true, class: 'sort-link btn btn-mini'
+      = link_to((session[:hide].zero? ? 'Hide completed' : 'Show all'), toggle_visibility_tasks_path(hide: session[:hide].zero? ? 1 : 0), class: 'btn btn-mini sort-link', id: 'link-toggle-completed')

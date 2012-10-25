@@ -1,6 +1,4 @@
 = form_for @task || current_user.tasks.new(), remote: true, html: {class: 'form-inline', id: 'form-new-task'} do |f|
-  = hidden_field_tag :sort, params[:sort]
-  = hidden_field_tag :hide_completed, params[:hide_completed]
   = f.text_field :title, placeholder: 'Description of the task'
   .datepicker.input-append.date{data: {date: "#{Date.today}"}}
     = f.text_field :due_at, class: 'span2', placeholder: 'Due date', readonly: 'readonly'
