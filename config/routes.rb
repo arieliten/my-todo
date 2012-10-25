@@ -11,7 +11,9 @@ MyTodo::Application.routes.draw do
   end
 
   namespace :api do
-    resources :tasks
+    resources :tasks do
+      put :toggle, on: :member
+    end
   end
 
 end

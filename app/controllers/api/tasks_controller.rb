@@ -28,6 +28,11 @@ class Api::TasksController < ApplicationController
     respond_with(@task)
   end
 
+  def toggle
+    @task.toggle!(:completed)
+    respond_with(@task)
+  end
+
   def destroy
     @task.destroy
     respond_with(@task)
